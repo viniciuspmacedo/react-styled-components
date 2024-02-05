@@ -1,6 +1,8 @@
 # react-styled-components
 Repositório para o curso React: estilize componentes com Styled Components e manipule arquivos estáticos
 
+[Figma do projeto](https://www.figma.com/file/2LFVvhAwy08j6kCaPcnOzs/SpaceApp-%7C-React%3A-arquivos-est%C3%A1ticos-com-integra%C3%A7%C3%A3o-de-conceito-%C3%A1rea-de-component?type=design&node-id=89-4&mode=design&t=KGRo7AUGag84JjQN-0)
+
 ## Aula 1
 
 Inciamos um projeto com a ultima versão do Vite.
@@ -49,3 +51,8 @@ const GlobalStyles = createGlobalStyle`
 ```
 Os arquivos das fontes foram importados no componente estilizado *'GlobalStyles'* e posteriormente criados os *@font-face* no CSS.
 A função **local()** diz ao navegador para tentar usar a fonte local, caso o usuário a tenha instalada, caso contrário usará a url.
+
+## Aula 3
+
+Estruturação do layout da galeria, criação das tags e importação do arquivo fotos.json que contem todas as informações para preencher dinamicamente as fotos da galeria.
+O compomente App ficou responsável por gerenciar os estado das fotos da galeria uma vez que mais de um componente (tags e barra de busca) alteraram seu estado.
