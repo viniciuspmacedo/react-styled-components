@@ -8,6 +8,7 @@ const StyledListItem = styled.li`
     font-size: 24px;
     width: 212px;
     margin-bottom: 12px;
+    
     a{
         color: ${props => props.$active ? '#7B78E5' : '#D9D9D9'};
         font-family: ${props => props.$active ? 'GandhiSansBold' : 'GandhiSansRegular'};

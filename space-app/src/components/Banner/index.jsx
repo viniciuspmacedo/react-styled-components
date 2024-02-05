@@ -20,11 +20,11 @@ const StyledTitle = styled.h1`
     padding: 0 64px;
 `
 
-const Banner = ({backgroundImage}) => {
+const Banner = ({backgroundImage, text}) => {
     return (
         <StyledFigure $backgroundImage = {backgroundImage}>
             <StyledTitle>
-            A galeria mais completa de fotos do espaço!
+            {text}
             </StyledTitle>
         </StyledFigure>
     )
