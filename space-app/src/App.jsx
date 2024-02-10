@@ -1,51 +1,84 @@
-import { styled } from 'styled-components';
-import GlobalStyles from './components/GlobalStyles';
-import Header from './components/Header';
-import SideBar from './components/SideBar';
-import Banner from './components/Banner';
-import bannerImg from './assets/banner.png';
-import Gallery from './components/Gallery';
-import photos from './fotos.json';
-import { useState } from 'react';
+import { styled } from "styled-components"
+import EstilosGlobais from "./componentes/EstilosGlobais"
+import Cabecalho from "./componentes/Cabecalho"
+import BarraLateral from "./componentes/BarraLateral"
+import Banner from "./componentes/Banner"
+import bannerBackground from './assets/banner.png'
+import Galeria from "./componentes/Galeria"
 
-function App() {
+import fotos from './fotos.json'
+import { useState } from "react"
+import ModalZoom from "./componentes/ModalZoom"
 
-  const GradientBackground = styled.div`
+const FundoGradiente = styled.div`
   background: linear-gradient(174.61deg, #041833 4.16%, #04244F 48%, #154580 96.76%);
-    width: 100%;
-    min-height: 100vh;
+  width: 100%;
+  min-height: 100vh;
 `
-  const StyledMain = styled.main`
+
+const AppContainer = styled.div`
+  width: 1440px;
+  margin: 0 auto;
+  max-width: 100%;
+`
+
+const MainContainer = styled.main`
+  display: flex;
+  gap: 24px;
+`
+
+const ConteudoGaleria = styled.section`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 `
 
-  const AppContainer = styled.div`
-  width: 1440px;
-  max-width: 100%;
-  margin: 0 auto;
-`
-  const ContentContainer = styled.div`
-  display: flex;
-  gap: 24px;
-`
-  const [galleryPhotos, setGalleryPhotos] = useState(photos)
+const App = () => {
+  const [fotosDaGaleria, setFotosDaGaleria] = useState(fotos)
+  const [fotoSelecionada, setFotoSelecionada] = useState(null)
+
+  const aoAlterarFavorito = (foto) => {
+    if (fotoSelecionada?.id === foto.id){
+      setFotoSelecionada({
+        ...fotoSelecionada,
+        favorita: !fotoSelecionada.favorita
+      })
+    }
+
+    setFotosDaGaleria(fotosDaGaleria.map(fotoDaGaleria => {
+      return {
+        ...fotoDaGaleria,
+        favorita: fotoDaGaleria.id === foto.id ? !foto.favorita : fotoDaGaleria.favorita
+      }
+    }))
+  }
 
   return (
-    <GradientBackground>
-      <GlobalStyles />
+    <FundoGradiente>
+      <EstilosGlobais />
       <AppContainer>
-        <Header />
-        <ContentContainer>
-          <SideBar />
-          <StyledMain>
-            <Banner backgroundImage={bannerImg} text={'A galeria mais completa de fotos do espaço!'} />
-            <Gallery photos={galleryPhotos}/>
-          </StyledMain>
-        </ContentContainer>
+        <Cabecalho />
+        <MainContainer>
+          <BarraLateral />
+          <ConteudoGaleria>
+            <Banner
+              texto="A galeria mais completa de fotos do espaço!"
+              backgroundImage={bannerBackground}
+            />
+            <Galeria
+              aoFotoSelecionada={foto => setFotoSelecionada(foto)}
+              aoAlterarFavorito={aoAlterarFavorito}
+              fotos={fotosDaGaleria}
+            />
+          </ConteudoGaleria>
+        </MainContainer>
       </AppContainer>
-    </GradientBackground>
+      <ModalZoom
+        foto={fotoSelecionada}
+        aoFechar={() => setFotoSelecionada(null)}
+        aoAlterarFavorito = {aoAlterarFavorito}
+      />
+    </FundoGradiente>
   )
 }
 
