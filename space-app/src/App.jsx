@@ -7,7 +7,7 @@ import bannerBackground from './assets/banner.png'
 import Galeria from "./componentes/Galeria"
 
 import fotos from './fotos.json'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ModalZoom from "./componentes/ModalZoom"
 
 const FundoGradiente = styled.div`
@@ -36,9 +36,28 @@ const ConteudoGaleria = styled.section`
 const App = () => {
   const [fotosDaGaleria, setFotosDaGaleria] = useState(fotos)
   const [fotoSelecionada, setFotoSelecionada] = useState(null)
+  const [textoPesquisado, setTextoPesquisado] = useState("")
+
+  useEffect(() => { aoPesquisado(textoPesquisado) 
+  }, [textoPesquisado])
+
+  function manipulaTextoPesquisado(e) {
+    setTextoPesquisado(e.target.value)
+  }
+
+  function aoPesquisado(textoPesquisado) {
+    if (textoPesquisado === "") {
+      setFotosDaGaleria(fotos)
+    } else {
+      setFotosDaGaleria(fotos.filter((foto) =>
+        foto.titulo.toLowerCase()
+        .includes(textoPesquisado.toLowerCase())))
+    }
+  }
+
 
   const aoAlterarFavorito = (foto) => {
-    if (fotoSelecionada?.id === foto.id){
+    if (fotoSelecionada?.id === foto.id) {
       setFotoSelecionada({
         ...fotoSelecionada,
         favorita: !fotoSelecionada.favorita
@@ -57,7 +76,8 @@ const App = () => {
     <FundoGradiente>
       <EstilosGlobais />
       <AppContainer>
-        <Cabecalho />
+        <Cabecalho aoTextoPesquisado={manipulaTextoPesquisado}
+          textoPesquisado={textoPesquisado} />
         <MainContainer>
           <BarraLateral />
           <ConteudoGaleria>
@@ -76,7 +96,7 @@ const App = () => {
       <ModalZoom
         foto={fotoSelecionada}
         aoFechar={() => setFotoSelecionada(null)}
-        aoAlterarFavorito = {aoAlterarFavorito}
+        aoAlterarFavorito={aoAlterarFavorito}
       />
     </FundoGradiente>
   )

@@ -1,5 +1,6 @@
 import { styled } from "styled-components"
 import CampoTexto from "../CampoTexto"
+import { useState } from "react";
 
 const HeaderEstilizado = styled.header`
     padding: 60px 0;
@@ -10,10 +11,12 @@ const HeaderEstilizado = styled.header`
     }
 `
 
-const Cabecalho = () => {
+const Cabecalho = ({aoTextoPesquisado, textoPesquisado}) => {
+
+    
     return (<HeaderEstilizado>
         <img src="/imagens/logo.png" alt="" />
-        <CampoTexto />
+        <CampoTexto value={textoPesquisado} onChange={(e)=>aoTextoPesquisado(e)}/>
     </HeaderEstilizado>)
 }
 
