@@ -38,22 +38,31 @@ const App = () => {
   const [fotoSelecionada, setFotoSelecionada] = useState(null)
   const [textoPesquisado, setTextoPesquisado] = useState("")
 
-  useEffect(() => { aoPesquisado(textoPesquisado) 
+  useEffect(() => {
+    aoPesquisado(textoPesquisado)
   }, [textoPesquisado])
 
-  function manipulaTextoPesquisado(e) {
+  const manipulaTextoPesquisado = (e) => {
     setTextoPesquisado(e.target.value)
   }
 
-  function aoPesquisado(textoPesquisado) {
+  const aoPesquisado = (textoPesquisado) => {
     if (textoPesquisado === "") {
       setFotosDaGaleria(fotos)
     } else {
       setFotosDaGaleria(fotos.filter((foto) =>
         foto.titulo.toLowerCase()
-        .includes(textoPesquisado.toLowerCase())))
+          .includes(textoPesquisado.toLowerCase())))
     }
   }
+
+  const aoTagSelecionada = (tag)=>{
+    if(tag.id === 0){
+      setFotosDaGaleria(fotos)
+    } else{
+      setFotosDaGaleria( fotos.filter( (foto) => foto.tagId === tag.id))
+    }
+}
 
 
   const aoAlterarFavorito = (foto) => {
@@ -88,6 +97,7 @@ const App = () => {
             <Galeria
               aoFotoSelecionada={foto => setFotoSelecionada(foto)}
               aoAlterarFavorito={aoAlterarFavorito}
+              aoTagSelecionada={aoTagSelecionada}
               fotos={fotosDaGaleria}
             />
           </ConteudoGaleria>

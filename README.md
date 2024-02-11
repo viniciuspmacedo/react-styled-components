@@ -56,3 +56,13 @@ A função **local()** diz ao navegador para tentar usar a fonte local, caso o u
 
 Estruturação do layout da galeria, criação das tags e importação do arquivo fotos.json que contem todas as informações para preencher dinamicamente as fotos da galeria.
 O compomente App ficou responsável por gerenciar os estado das fotos da galeria uma vez que mais de um componente (tags e barra de busca) alteraram seu estado.
+Utilizamos a técnica *props drilling* para passar as fotos que são gerenciadas pelo ``` <App/>``` dentro do elemento ```<Image/ >``` da galeria.
+
+## Aula 4
+
+Criação do um modal para exibir a imagem selecionada pelo usuário utilizando-se da tag html ```<dialog>``` e usando o metodo 'dialog' dentro de um ```<form>``` para fechá-lo. Também foi criado um elemento de Overlay para impedir o acesso aos demais elementos da tela enquanto o modal estiver aberto.
+
+## Aula 5
+
+Implementação da função de favoritar as imagems.
+Aplicação de filtro da galeria pela barra de pesquisa, utilizando do hook useEffect e pelos botões de tags.
